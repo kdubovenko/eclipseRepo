@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="1" failures="0" finished="true" name="Test Run: 2" tests="0" total_time="Finished in: 0.00 secs."/>
+<test location="C:/Users/Konstantin/workspace/eclipse/Saleae Continuous/Continuous_Module.py" status="error" test="Continuous_Module" time="0">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "C:\Users\Konstantin\AppData\Local\Programs\Python\Python36-32\lib\site-packages\saleae\saleae.py", line 136, in __init__
+    self._s.connect((host, port))
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Konstantin\.p2\pool\plugins\org.python.pydev_5.5.0.201701191708\pysrc\_pydev_runfiles\pydev_runfiles.py", line 468, in __get_module_from_str
+    mod = __import__(modname)
+  File "C:\Users\Konstantin\workspace\eclipse\Saleae Continuous\Continuous_Module.py", line 21, in <module>
+    s = saleae.Saleae()
+  File "C:\Users\Konstantin\AppData\Local\Programs\Python\Python36-32\lib\site-packages\saleae\saleae.py", line 139, in __init__
+    Saleae.launch_logic()
+  File "C:\Users\Konstantin\AppData\Local\Programs\Python\Python36-32\lib\site-packages\saleae\saleae.py", line 94, in launch_logic
+    os.startfile(p)
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:Program Files\\Saleae Inc\\Logic.exe'
+ERROR: Module: Continuous_Module could not be imported (file: C:/Users/Konstantin/workspace/eclipse/Saleae Continuous/Continuous_Module.py).
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="Saleae Continuous Saleae Continuous"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

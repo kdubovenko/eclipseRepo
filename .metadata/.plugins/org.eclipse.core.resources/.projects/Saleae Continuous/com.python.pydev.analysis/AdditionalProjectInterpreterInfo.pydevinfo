@@ -1,0 +1,22 @@
+-- VERSION_4
+-- START DISKCACHE_2
+C:\Users\Konstantin\workspace\eclipse\.metadata\.plugins\org.eclipse.core.resources\.projects\Saleae Continuous\com.python.pydev.analysis\v2_indexcache
+Continuous_Module|1491269923863370000|C:\Users\Konstantin\workspace\eclipse\Saleae Continuous\Continuous_Module.py
+-- END DISKCACHE
+-- START DICTIONARY
+1
+1=Continuous_Module
+-- END DICTIONARY
+-- START TREE 1
+7
+ana|1|analog!11@
+dev|1|devices!11@
+dig|1|digital!11@
+fol|1|folder!11@
+pat|1|path!11@
+pre|1|pretrigger_buf!11@
+s|1|s!11@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

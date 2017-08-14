@@ -1,0 +1,17 @@
+-- VERSION_4
+-- START DISKCACHE_2
+C:\Users\Konstantin\workspace\eclipse\.metadata\.plugins\org.eclipse.core.resources\.projects\Binary_Mod\com.python.pydev.analysis\v2_indexcache
+Bin_Mod|1496371571333402000|C:\Users\Konstantin\workspace\eclipse\Binary_Mod\Bin_Mod.py
+-- END DISKCACHE
+-- START DICTIONARY
+1
+1=Bin_Mod
+-- END DICTIONARY
+-- START TREE 1
+2
+byt|2|byte!11@byte_count!11@
+uin|1|uint_check!11@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

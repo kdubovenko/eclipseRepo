@@ -1,0 +1,28 @@
+#include "Arduino.h"
+#include "SPI.h"
+//The setup function is called once at startup of the sketch
+
+SPIClass PatchSPI;
+
+void setup()
+{
+	Serial.begin(115200);
+	Serial.println("Starting SPI COM");
+
+	PatchSPI.begin();
+	PatchSPI.beginTransaction(SPISettings(4000000,MSBFIRST,SPI_MODE0));
+
+// Add your initialization code here
+}
+
+// The loop function is called in an endless loop
+void loop()
+{
+	uint16_t SPI_data;
+	PatchSPI.transfer16(0);
+	SPI_data = PatchSPI.transfer16(0);
+	Serial.print("SPI read: ");
+	Serial.print("SPI_data");
+	delay(500);
+//Add your repeated code here
+}

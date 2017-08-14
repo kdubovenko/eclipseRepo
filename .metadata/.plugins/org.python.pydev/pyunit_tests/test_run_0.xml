@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="1" failures="0" finished="true" name="Test Run: 0" tests="0" total_time="Finished in: 0.00 secs."/>
+<test location="C:/Users/Konstantin/workspace/eclipse/Saleae_Test/Test_module.py" status="error" test="Test_module" time="0">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "C:\Users\Konstantin\.p2\pool\plugins\org.python.pydev_5.5.0.201701191708\pysrc\_pydev_runfiles\pydev_runfiles.py", line 468, in __get_module_from_str
+    mod = __import__(modname)
+  File "C:\Users\Konstantin\workspace\eclipse\Saleae_Test\Test_module.py", line 6, in <module>
+    import saleae
+ModuleNotFoundError: No module named 'saleae'
+ERROR: Module: Test_module could not be imported (file: C:/Users/Konstantin/workspace/eclipse/Saleae_Test/Test_module.py).
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="Saleae_Test Saleae_Test"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

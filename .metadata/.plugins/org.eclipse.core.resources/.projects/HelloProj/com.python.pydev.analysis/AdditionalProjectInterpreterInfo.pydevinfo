@@ -1,0 +1,23 @@
+-- VERSION_4
+-- START DISKCACHE_2
+C:\Users\Konstantin\workspace\eclipse\.metadata\.plugins\org.eclipse.core.resources\.projects\HelloProj\com.python.pydev.analysis\v2_indexcache
+FirstModule|1488528446388698000|C:\Users\Konstantin\workspace\eclipse\HelloProj\FirstModule.py
+-- END DISKCACHE
+-- START DICTIONARY
+3
+1=FirstModule
+2=TkFileDialogExample
+3=TkFileDialogExample.__init__
+-- END DICTIONARY
+-- START TREE 1
+2
+roo|1|root!11@
+tkf|1|TkFileDialogExample!9@
+-- END TREE
+-- START TREE 2
+4
+__i|1|__init__!2&10@
+ask|5|askopenfilename!2&10@askopenfile!2&10@askdirectory!2&10@asksaveasfile!2&10@asksaveasfilename!2&10@
+dir|1|dir_opt!3&11@
+fil|1|file_opt!3&11@
+-- END TREE

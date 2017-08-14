@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pydev-testrun version="1.0"?><pydev-testsuite>
+<summary errors="1" failures="0" finished="true" name="Test Run: 1" tests="0" total_time="Finished in: 0.00 secs."/>
+<test location="C:/Users/Konstantin/workspace/eclipse/Saleae Continuous/Continuous_Module.py" status="error" test="Continuous_Module" time="0">
+<stdout/>
+<stderr><![CDATA[Traceback (most recent call last):
+  File "C:\Users\Konstantin\.p2\pool\plugins\org.python.pydev_5.5.0.201701191708\pysrc\_pydev_runfiles\pydev_runfiles.py", line 468, in __get_module_from_str
+    mod = __import__(modname)
+  File "C:\Users\Konstantin\workspace\eclipse\Saleae Continuous\Continuous_Module.py", line 28, in <module>
+    s.capture_to_file(path)
+  File "C:\Users\Konstantin\AppData\Local\Programs\Python\Python36-32\lib\site-packages\saleae\saleae.py", line 601, in capture_to_file
+    self._cmd('CAPTURE_TO_FILE, ' + file_path_on_target_machine)
+  File "C:\Users\Konstantin\AppData\Local\Programs\Python\Python36-32\lib\site-packages\saleae\saleae.py", line 200, in _cmd
+    ret = self._recv(expect_nak=expect_nak)
+  File "C:\Users\Konstantin\AppData\Local\Programs\Python\Python36-32\lib\site-packages\saleae\saleae.py", line 191, in _recv
+    raise self.CommandNAKedError
+saleae.saleae.Saleae.CommandNAKedError
+ERROR: Module: Continuous_Module could not be imported (file: C:/Users/Konstantin/workspace/eclipse/Saleae Continuous/Continuous_Module.py).
+]]></stderr>
+</test>
+<launch mode="run">
+<launch_memento><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration local="true" path="Saleae Continuous Saleae Continuous"/>
+]]></launch_memento>
+</launch>
+</pydev-testsuite>

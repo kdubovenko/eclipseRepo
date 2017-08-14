@@ -1,0 +1,45 @@
+#include "Arduino.h"
+#include "SPI.h"
+//The setup function is called once at startup of the sketch
+
+#define SPI_INTERVAL_MS	500
+
+SPIClass PatchSPI;
+unsigned long millis_track;
+
+void setup()
+{
+	Serial.begin(115200);
+	Serial.println("Starting SPI COM");
+
+	PatchSPI.begin();
+	PatchSPI.beginTransaction(SPISettings(4000000,MSBFIRST,SPI_MODE0));
+
+	millis_track = millis();
+
+	Serial.println("Serial COM started");
+	Serial.println("Type E to start reading data from Patch");
+	Serial.println("Type 0 to stop reading data Patch");
+
+}
+
+// The loop function is called in an endless loop
+void loop()
+{
+	char input;
+	uint16_t SPI_data;
+
+	if (Serial.available())
+	{
+		input = Serial.read();
+		Serial.write(input);
+	}
+
+	if((millis() - millis_track) >= SPI_INTERVAL_MS)
+	{
+		millis_track = millis();
+		SPI_data = PatchSPI.transfer16(0xAAAA);
+		Serial.print("SPI read: ");
+		Serial.println(SPI_data);
+	}
+}

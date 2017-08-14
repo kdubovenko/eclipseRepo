@@ -1,0 +1,20 @@
+714=6
+Automatically\ import\ libraries=true
+Board=nodemcuv2
+Board\ custom\ option\ selections=Flash Mode\=\nProcessor\=\nUSB Type\=\nFlash Size\=4M (3M SPIFFS)\nDebug port\=\nDebug Level\=\nKeyboard Layout\=\nReset Method\=\nFlash Frequency\=\nUpload Using\=\nCPU Frequency\=80 MHz\nCPU Speed\=\nUpload Speed\=921600\nModule\=\nOptimize\=
+Boards\ file=C\:/Users/Konstantin/eclipse/java-neon/eclipse/arduinoPlugin/packages/esp8266/hardware/esp8266/2.3.0/boards.txt
+Build\ before\ upload\ option=TRUE
+Clean\ Serial\ Monitor\ after\ upload=false
+FmStatus=4
+FuStatub=26
+FuStatus=22
+JANTJE.TEMPLATE_USE_DEFAULT=Default ino file
+Last\ used\ Examples=
+Open\ serial\ connections\ with\ the\ monitor=true
+Private\ Library\ Path=C\:\\Users\\Konstantin\\Documents\\Arduino\\libraries;C\:\\Users\\Konstantin\\arduino-1.8.0\\libraries
+Private\ hardware\ Path=C\:\\Users\\Konstantin\\arduino-1.8.0\\hardware
+Serial\ Monitor\ Last\ Used\ Line\ Ending\ index=3
+UPLOAD.PROTOCOL=Default
+Upload\ port=COM8
+eclipse.preferences.version=1
+lFsStatus=52
