@@ -41,5 +41,4 @@ core\core\libb64 \
 core\core\spiffs \
 core\core\umm_malloc \
 libraries\ESP8266WiFi\src \
-libraries\ThingSpeak\src \
 

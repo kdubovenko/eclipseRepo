@@ -9,7 +9,6 @@ RM := del
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir.mk
--include libraries\ThingSpeak\src/subdir.mk
 -include libraries\ESP8266WiFi\src/subdir.mk
 -include core\core\umm_malloc/subdir.mk
 -include core\core\spiffs/subdir.mk

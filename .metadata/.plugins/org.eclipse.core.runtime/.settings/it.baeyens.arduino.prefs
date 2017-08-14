@@ -1,4 +1,4 @@
-714=6
+714=9
 Automatically\ import\ libraries=true
 Board=nodemcuv2
 Board\ custom\ option\ selections=Flash Mode\=\nProcessor\=\nUSB Type\=\nFlash Size\=4M (3M SPIFFS)\nDebug port\=\nDebug Level\=\nKeyboard Layout\=\nReset Method\=\nFlash Frequency\=\nUpload Using\=\nCPU Frequency\=80 MHz\nCPU Speed\=\nUpload Speed\=921600\nModule\=\nOptimize\=
@@ -6,10 +6,10 @@ Boards\ file=C\:/Users/Konstantin/eclipse/java-neon/eclipse/arduinoPlugin/packag
 Build\ before\ upload\ option=TRUE
 Clean\ Serial\ Monitor\ after\ upload=false
 FmStatus=4
-FuStatub=26
+FuStatub=34
 FuStatus=22
-JANTJE.TEMPLATE_USE_DEFAULT=Default ino file
-Last\ used\ Examples=
+JANTJE.TEMPLATE_USE_DEFAULT=Sample sketch
+Last\ used\ Examples=C\:/Users/Konstantin/arduino-1.8.0/libraries/blynk-library/examples/Boards_WiFi
 Open\ serial\ connections\ with\ the\ monitor=true
 Private\ Library\ Path=C\:\\Users\\Konstantin\\Documents\\Arduino\\libraries;C\:\\Users\\Konstantin\\arduino-1.8.0\\libraries
 Private\ hardware\ Path=C\:\\Users\\Konstantin\\arduino-1.8.0\\hardware
