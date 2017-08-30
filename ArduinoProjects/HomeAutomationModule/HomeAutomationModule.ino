@@ -1,16 +1,4 @@
-/*
-  WriteMultipleVoltages
-  
-  Reads analog voltages from pins 0-7 and writes them to the 8 fields of a channel on ThingSpeak every 20 seconds.
-  
-  ThingSpeak ( https://www.thingspeak.com ) is an analytic IoT platform service that allows you to aggregate, visualize and 
-  analyze live data streams in the cloud.
-  
-  Copyright 2017, The MathWorks, Inc.
-  
-  Documentation for the ThingSpeak Communication Library for Arduino is in the extras/documentation folder where the library was installed.
-  See the accompaning licence file for licensing information.
-*/
+#define BLYNK_PRINT Serial
 
 #include "ThingSpeak.h"
 #include <ESP8266WiFi.h>
@@ -25,6 +13,8 @@
 #include <IRutils.h>
 #include <IRsend.h>
 #include <DHT.h>
+
+#define LED_PIN 16
 
 
 #define BUF_SIZE      200
@@ -41,7 +31,7 @@ char pass[] = "0223#tpa";   // your network password
 
 //Blynk stuff
 
-char auth[] = "b7b7ddd0a43943ddb5fd072cfc02eafc";
+char auth[] = "66b347d0823b4121b310ed404b509790";
 WidgetLED led1(V1);
 WidgetLED led2(V5);
 //WidgetRTC rtc;
@@ -99,8 +89,8 @@ uint16_t second_buffer_count = 0;
   **** has more information. You need to change this to your channel, and your write API key
   **** IF YOU SHARE YOUR CODE WITH OTHERS, MAKE SURE YOU REMOVE YOUR WRITE API KEY!!
   *****************************************************************************************/
-unsigned long myChannelNumber = 286926;
-const char * myWriteAPIKey = "F1VW3ERE39QPBZN7";
+//unsigned long myChannelNumber = 286926;
+//const char * myWriteAPIKey = "F1VW3ERE39QPBZN7";
 IPAddress ip;
 
 
@@ -148,6 +138,17 @@ BLYNK_WRITE(V2)
   Serial.print("Slider value is: ");
   Serial.println(TimeoutValue);
   led2.on();
+}
+
+BLYNK_WRITE(V0)
+{
+  int tempval;
+  tempval = param.asInt(); // assigning incoming value from pin V1 to a variable
+  // You can also use:
+  // String i = param.asStr();
+  // double d = param.asDouble();
+  digitalWrite(LED_PIN, !tempval);
+
 }
 
 BLYNK_WRITE(V3)
@@ -235,12 +236,13 @@ void setup() {
 //  WiFi.begin(ssid, pass);
 //   ThingSpeak.begin(client);
   pinMode(5, INPUT);
-  pinMode(16, OUTPUT);
-  digitalWrite(16, HIGH);
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, HIGH);
 
   millis_track = millis();
   
-  Blynk.begin(auth, ssid, pass);
+  //Blynk.begin(auth, ssid, pass);
+  Blynk.begin(auth, ssid, pass, IPAddress(10,0,0,21), 8442);
   Blynk.virtualWrite(V2, TimeoutValue);
 
   //irrecv.enableIRIn();  // Start the receiver
@@ -293,7 +295,10 @@ void one_second_loop()
 {
   bool motion_det;
   float h = dht.readHumidity();
-  float t = dht.readTemperature(true); // or dht.readTemperature(true) for Fahrenheit
+  float t = dht.readTemperature(); // or dht.readTemperature(true) for Fahrenheit
+
+  //Blynk.syncAll();
+  Blynk.syncVirtual(V0);
   
   motion_det = digitalRead(5);
 
