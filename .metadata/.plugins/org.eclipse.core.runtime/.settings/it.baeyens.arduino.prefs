@@ -1,4 +1,4 @@
-714=9
+714=10
 Automatically\ import\ libraries=true
 Board=nodemcuv2
 Board\ custom\ option\ selections=Flash Mode\=\nProcessor\=\nUSB Type\=\nFlash Size\=4M (3M SPIFFS)\nDebug port\=\nDebug Level\=\nKeyboard Layout\=\nReset Method\=\nFlash Frequency\=\nUpload Using\=\nCPU Frequency\=80 MHz\nCPU Speed\=\nUpload Speed\=921600\nModule\=\nOptimize\=
