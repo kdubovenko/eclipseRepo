@@ -24,7 +24,6 @@ char ssid[] = "KonstaCat"; //  your network SSID (name)
 char pass[] = "0223#tpa";   // your network password
 
 //Thingspeak stuff
-
 #define KEY "cK9gQ8qgo_F1f1SHy3iCP"  // Get it from this page https://ifttt.com/services/maker/settings
 #define LIGHTS_ON_EVENT "lifx_light_on" // Name of your event name, set when you are creating the applet
 #define LIGHTS_OFF_EVENT "lifx_light_off" // Name of your event name, set when you are creating the applet
@@ -34,6 +33,9 @@ char pass[] = "0223#tpa";   // your network password
 char auth[] = "66b347d0823b4121b310ed404b509790";
 WidgetLED led1(V1);
 WidgetLED led2(V5);
+WidgetLED led3(V14);
+BlynkTimer timer;
+
 //WidgetRTC rtc;
 
 //time stuff
@@ -102,6 +104,10 @@ unsigned long getTime() {
   //Serial.println(timeClient.getFormattedTime());
   epochTime = timeClient.getEpochTime();
   return epochTime;
+}
+
+BLYNK_CONNECTED() {
+    Blynk.syncAll();
 }
 
 BLYNK_WRITE(V2)
@@ -244,6 +250,9 @@ void setup() {
   //Blynk.begin(auth, ssid, pass);
   Blynk.begin(auth, ssid, pass, IPAddress(10,0,0,21), 8442);
   Blynk.virtualWrite(V2, TimeoutValue);
+  led1.off();
+  led2.off();
+  led3.off();
 
   //irrecv.enableIRIn();  // Start the receiver
   irsend.begin();    // Start the transmitter
@@ -277,21 +286,21 @@ void setup() {
   Serial.println(ip);
   
   Serial.println("Huzzah motion detect started");
-  
-
+  timer.setInterval(1000L, BlynkLoop);
 }
 
 void loop() 
 {  
-  if((millis() - millis_track) >= 1000)
-  {
-    millis_track = millis();
-    one_second_loop();
-  }
+//  if((millis() - millis_track) >= 1000)
+//  {
+//    millis_track = millis();
+//    one_second_loop();
+//  }
   Blynk.run();
+  timer.run();
 }
 
-void one_second_loop()
+void BlynkLoop()
 {
   bool motion_det;
   float h = dht.readHumidity();
@@ -301,6 +310,10 @@ void one_second_loop()
   Blynk.syncVirtual(V0);
   
   motion_det = digitalRead(5);
+  if(motion_det)
+    led3.on();
+  else
+    led3.off();
 
   Serial.print("Motion sensor reading: ");
   Serial.println(motion_det);
