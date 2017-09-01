@@ -2,7 +2,8 @@
 
 #include "ThingSpeak.h"
 #include <ESP8266WiFi.h>
-#include "IFTTTMaker.h"
+#include <WiFiClientSecure.h>
+#include <IFTTTMaker.h>
 #include <BlynkSimpleEsp8266.h>
 #include "TimeLib.h"
 //#include "WidgetRTC.h"
@@ -23,13 +24,15 @@
 char ssid[] = "KonstaCat"; //  your network SSID (name) 
 char pass[] = "0223#tpa";   // your network password
 
-//Thingspeak stuff
+//IFTTT stuff
 #define KEY "cK9gQ8qgo_F1f1SHy3iCP"  // Get it from this page https://ifttt.com/services/maker/settings
 #define LIGHTS_ON_EVENT "lifx_light_on" // Name of your event name, set when you are creating the applet
 #define LIGHTS_OFF_EVENT "lifx_light_off" // Name of your event name, set when you are creating the applet
 
-//Blynk stuff
+WiFiClientSecure client;
+IFTTTMaker ifttt(KEY, client);
 
+//Blynk stuff
 char auth[] = "66b347d0823b4121b310ed404b509790";
 WidgetLED led1(V1);
 WidgetLED led2(V5);
@@ -42,11 +45,7 @@ BlynkTimer timer;
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP);
 
-//WiFiClient  client;
-WiFiClientSecure client;
-IFTTTMaker ifttt(KEY, client);
-
-//IR Remote
+//IR Remote stuff
 IRsend irsend(4);
 //IRrecv irrecv(5);
 //decode_results results;
@@ -61,7 +60,6 @@ IRsend irsend(4);
 
 DHT dht(DHTPIN, DHTTYPE);
 
-
 //custom automation stuff
 #define ON  1
 #define OFF 0
@@ -74,6 +72,7 @@ unsigned int event_cnt = 0;
 
 int status = WL_IDLE_STATUS;
 
+//global variables
 volatile unsigned long next;
 //unsigned int ADC_raw;
 uint16_t millisecond_buffer[2][BUF_SIZE];
@@ -233,6 +232,25 @@ BLYNK_WRITE(V12)
     irsend.sendNEC(0x5EA17887, 32);
   }
 }
+BLYNK_WRITE(V16)
+{
+  int tempval;
+  tempval = param.asInt();
+  if(tempval)
+  {
+    if(ifttt.triggerEvent(LIGHTS_ON_EVENT, ssid, ip.toString()))
+    {
+      Serial.println("LIFX on Sent");
+    }
+  }
+  else
+  {
+    if(ifttt.triggerEvent(LIGHTS_OFF_EVENT, ssid, ip.toString()))
+    {
+      Serial.println("LIFX on Sent");
+    }
+  }
+}
 
 unsigned long millis_track = 0;
 
@@ -308,6 +326,7 @@ void BlynkLoop()
 
   //Blynk.syncAll();
   Blynk.syncVirtual(V0);
+  Blynk.syncVirtual(V16);
   
   motion_det = digitalRead(5);
   if(motion_det)
