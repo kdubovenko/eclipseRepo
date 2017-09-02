@@ -1,12 +1,0 @@
-audio remote codes
-FF7887 - ch2
-FFBA45 - ch1
-FFE817 - power
-
-Audio Reciever:
-power off: Code      : 5EA17887 (32 bits)
-power on: Code      : 5EA1B847 (32 bits)
-
-CD code: Code      : 5EA1B847 (32 bits), Code      : 5EA1A857 (32 bits), Code      : 5EA110EF (32 bits)
-vol up: Code      : 5EA158A7 (32 bits)
-vold dn: Code      : 5EA1D827 (32 bits)

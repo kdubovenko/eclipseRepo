@@ -2,8 +2,8 @@
 
 #include "ThingSpeak.h"
 #include <ESP8266WiFi.h>
-#include <WiFiClientSecure.h>
-#include <IFTTTMaker.h>
+//#include <WiFiClientSecure.h>
+//#include <IFTTTMaker.h>
 #include <BlynkSimpleEsp8266.h>
 #include "TimeLib.h"
 //#include "WidgetRTC.h"
@@ -15,22 +15,26 @@
 #include <IRsend.h>
 #include <DHT.h>
 
+//For WiFi Manager
+#include <DNSServer.h>
+#include <ESP8266WebServer.h>
+#include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
+
 #define LED_PIN 16
 
+//#define BUF_SIZE      200
+//#define MIN_BUF_SIZE  60
 
-#define BUF_SIZE      200
-#define MIN_BUF_SIZE  60
-
-char ssid[] = "KonstaCat"; //  your network SSID (name) 
-char pass[] = "0223#tpa";   // your network password
+//char ssid[] = "KonstaCat"; //  your network SSID (name) 
+//char pass[] = "0223#tpa";   // your network password
 
 //IFTTT stuff
-#define KEY "cK9gQ8qgo_F1f1SHy3iCP"  // Get it from this page https://ifttt.com/services/maker/settings
-#define LIGHTS_ON_EVENT "lifx_light_on" // Name of your event name, set when you are creating the applet
-#define LIGHTS_OFF_EVENT "lifx_light_off" // Name of your event name, set when you are creating the applet
+//#define KEY "cK9gQ8qgo_F1f1SHy3iCP"  // Get it from this page https://ifttt.com/services/maker/settings
+//#define LIGHTS_ON_EVENT "lifx_light_on" // Name of your event name, set when you are creating the applet
+//#define LIGHTS_OFF_EVENT "lifx_light_off" // Name of your event name, set when you are creating the applet
 
-WiFiClientSecure client;
-IFTTTMaker ifttt(KEY, client);
+//WiFiClientSecure client;
+//IFTTTMaker ifttt(KEY, client);
 
 //Blynk stuff
 char auth[] = "66b347d0823b4121b310ed404b509790";
@@ -73,14 +77,14 @@ unsigned int event_cnt = 0;
 int status = WL_IDLE_STATUS;
 
 //global variables
-volatile unsigned long next;
+//volatile unsigned long next;
 //unsigned int ADC_raw;
-uint16_t millisecond_buffer[2][BUF_SIZE];
-uint16_t buffer_cnt = 0;
-uint16_t buffer_select = 0;
-bool read_buffer = false;
-uint32_t second_buffer[60];
-uint16_t second_buffer_count = 0;
+//uint16_t millisecond_buffer[2][BUF_SIZE];
+//uint16_t buffer_cnt = 0;
+//uint16_t buffer_select = 0;
+//bool read_buffer = false;
+//uint32_t second_buffer[60];
+//uint16_t second_buffer_count = 0;
 
 
 /*
@@ -232,6 +236,7 @@ BLYNK_WRITE(V12)
     irsend.sendNEC(0x5EA17887, 32);
   }
 }
+/*
 BLYNK_WRITE(V16)
 {
   int tempval;
@@ -251,22 +256,30 @@ BLYNK_WRITE(V16)
     }
   }
 }
+*/
 
-unsigned long millis_track = 0;
+//unsigned long millis_track = 0;
 
 void setup() {
+	
+	String ESP_AP_ssid = "KonstaNode_" + String(ESP.getChipId());
 
   Serial.begin(115200);
-//  WiFi.begin(ssid, pass);
-//   ThingSpeak.begin(client);
+	
+	WiFiManager wifiManager;
+	wifiManager.autoConnect(ESP_AP_ssid.c_str(), NULL);
+	
   pinMode(5, INPUT);
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, HIGH);
 
-  millis_track = millis();
+  //millis_track = millis();
   
   //Blynk.begin(auth, ssid, pass);
-  Blynk.begin(auth, ssid, pass, IPAddress(10,0,0,21), 8442);
+  //Blynk.begin(auth, ssid, pass, IPAddress(10,0,0,21), 8442);
+	
+	//KD this should work but needs to be tested
+	Blynk.config(auth, IPAddress(10,0,0,21), 8442);
   Blynk.virtualWrite(V2, TimeoutValue);
   led1.off();
   led2.off();
@@ -279,27 +292,13 @@ void setup() {
   
   String currentTime = String(hour()) + ":" + minute() + ":" + second();
   String currentDate = String(day()) + "/" + month() + "/" + year();
+	Serial.println();
   Serial.print("Current time: ");
   Serial.print(currentTime);
   Serial.print(" ");
   Serial.print(currentDate);
   Serial.println();
-  
-//  WiFi.mode(WIFI_STA);
-//  WiFi.disconnect();
-//  delay(100);
-// 
-//  // Attempt to connect to Wifi network:
-//  Serial.print("Connecting Wifi: ");
-//  Serial.println(ssid);
-//  WiFi.begin(ssid, pass);
-//  while (WiFi.status() != WL_CONNECTED) {
-//    Serial.print(".");
-//    delay(500);
-//  }
-//  Serial.println("");
-//  Serial.println("WiFi connected");
-//  Serial.println("IP address: ");
+
   ip = WiFi.localIP();
   Serial.println(ip);
   
@@ -326,7 +325,7 @@ void BlynkLoop()
 
   //Blynk.syncAll();
   Blynk.syncVirtual(V0);
-  Blynk.syncVirtual(V16);
+  Blynk.syncVirtual(V16); //leaving this just in case for the LiFX light
   
   motion_det = digitalRead(5);
   if(motion_det)
