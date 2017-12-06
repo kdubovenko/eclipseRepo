@@ -15,6 +15,9 @@
 #include <IRsend.h>
 #include <DHT.h>
 
+//Adding software watchdog
+#include <Ticker.h>
+
 //For WiFi Manager
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
@@ -76,6 +79,11 @@ unsigned int event_cnt = 0;
 
 int status = WL_IDLE_STATUS;
 
+//OS watchdog stuff
+Ticker tickerOSWatch;
+#define OSWATCH_RESET_TIME 30
+static unsigned long last_loop;
+
 //global variables
 //volatile unsigned long next;
 //unsigned int ADC_raw;
@@ -98,6 +106,17 @@ int status = WL_IDLE_STATUS;
 //const char * myWriteAPIKey = "F1VW3ERE39QPBZN7";
 IPAddress ip;
 
+
+//this is the OS watchdog code
+void ICACHE_RAM_ATTR osWatch(void) {
+	unsigned long t = millis();
+	unsigned long last_run = abs(t - last_loop);
+	if(last_run >= (OSWATCH_RESET_TIME * 1000)) {
+		// save the hit here to eeprom or to rtc memory if needed
+		ESP.restart();  // normal reboot
+		//ESP.reset();  // hard reset
+	}
+}
 
 unsigned long getTime() {
   unsigned long epochTime;
@@ -301,9 +320,15 @@ void setup() {
 
   ip = WiFi.localIP();
   Serial.println(ip);
+	
+	//start watchdog
+	last_loop = millis();
+	tickerOSWatch.attach_ms(((OSWATCH_RESET_TIME / 3) * 1000), osWatch);
   
   Serial.println("Huzzah motion detect started");
   timer.setInterval(1000L, BlynkLoop);
+	
+	
 }
 
 void loop() 
@@ -313,6 +338,7 @@ void loop()
 //    millis_track = millis();
 //    one_second_loop();
 //  }
+	last_loop = millis();
   Blynk.run();
   timer.run();
 }
